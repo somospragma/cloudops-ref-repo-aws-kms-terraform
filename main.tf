@@ -1,6 +1,9 @@
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {
+  provider    = aws.project
+}
 
 resource "aws_kms_key" "key" {
+  provider    = aws.project
   count               = length(var.kms_config) > 0 ? length(var.kms_config) : 0
   description         = var.kms_config[count.index].description
   enable_key_rotation = var.kms_config[count.index].enable_key_rotation
@@ -9,12 +12,14 @@ resource "aws_kms_key" "key" {
 }
 
 resource "aws_kms_alias" "alias" {
+  provider    = aws.project
   count         = length(var.kms_config) > 0 ? length(var.kms_config) : 0
   name          = "alias/${join("-", tolist([var.client, var.environment, "kms", var.kms_config[count.index].application_id, var.service,count.index + 1]))}"
   target_key_id = aws_kms_key.key[count.index].key_id
 }
 
 data "aws_iam_policy_document" "root_policy" {
+  provider    = aws.project
   count = length(var.kms_config) > 0 ? 1 : 0
   statement {
     sid       = "IAM_Users"
@@ -29,6 +34,7 @@ data "aws_iam_policy_document" "root_policy" {
 }
 
 data "aws_iam_policy_document" "dynamic_policy" {
+  provider    = aws.project
   count = length(var.kms_config) > 0 ? length(var.kms_config) : 0
   dynamic "statement" {
     for_each = var.kms_config[count.index].statements
@@ -56,6 +62,7 @@ data "aws_iam_policy_document" "dynamic_policy" {
 
 
 data "aws_iam_policy_document" "combined" {
+  provider    = aws.project
   count = length(var.kms_config) > 0 ? length(var.kms_config) : 0
   override_policy_documents = [
     data.aws_iam_policy_document.root_policy[0].json,

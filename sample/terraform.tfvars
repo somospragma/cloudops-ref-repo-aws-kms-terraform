@@ -1,15 +1,12 @@
 ###############################################################
 # Variables Globales
 ###############################################################
-
-
 aws_region        = "us-east-1"
 profile           = "pra_idp_dev"
 environment       = "dev"
 client            = "pragma"
 project           = "hefesto"
 service_name_kms  = "kms"
-
 
 common_tags = {
   environment   = "dev"
