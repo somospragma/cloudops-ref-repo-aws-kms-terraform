@@ -8,7 +8,7 @@ resource "aws_kms_key" "key" {
   description         = var.kms_config[count.index].description
   enable_key_rotation = var.kms_config[count.index].enable_key_rotation
   policy              = data.aws_iam_policy_document.combined[count.index].json
-  tags = merge({ Name = "${join("-", tolist([var.client, var.environment, "kms", var.kms_config[count.index].application_id, var.service,count.index + 1]))}" })
+  tags = merge({ Name = "${join("-", tolist([var.client, var.project, var.environment, "kms", var.kms_config[count.index].application_id, var.service,count.index + 1]))}" })
 }
 
 resource "aws_kms_alias" "alias" {
