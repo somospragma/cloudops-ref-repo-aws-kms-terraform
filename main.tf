@@ -14,7 +14,7 @@ resource "aws_kms_key" "key" {
 resource "aws_kms_alias" "alias" {
   provider    = aws.project
   count         = length(var.kms_config) > 0 ? length(var.kms_config) : 0
-  name          = "alias/${join("-", tolist([var.client, var.environment, "kms", var.kms_config[count.index].application_id, var.service,count.index + 1]))}"
+  name          = "alias/${join("-", tolist([var.client, var.project, var.environment, "kms", var.kms_config[count.index].application_id, var.service,count.index + 1]))}"
   target_key_id = aws_kms_key.key[count.index].key_id
 }
 

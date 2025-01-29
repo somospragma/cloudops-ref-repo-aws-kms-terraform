@@ -1,3 +1,20 @@
+variable "service" {
+  type = string
+}
+
+variable "client" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}
+
+variable "project" {
+  type = string  
+}
+
+
 variable "kms_config" {
   type = list(object({
     description         = string
@@ -19,14 +36,4 @@ variable "kms_config" {
   }))
 }
 
-variable "service" {
-  type = string
-}
 
-variable "client" {
-  type = string
-}
-
-variable "environment" {
-  type = string
-}
