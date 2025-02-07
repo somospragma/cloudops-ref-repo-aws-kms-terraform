@@ -7,9 +7,8 @@ Este módulo permite la creación y gestión de claves KMS en AWS, facilitando l
 KMS:
 
 - Crear un KMS necesario para la encriptación de datos sensibles.
-- Configurar la rotación automática de claves.
 - Establecer políticas de acceso para controlar quién puede administrar y utilizar las claves.
-- Asociar el KMS con servicios específicos como RDS, S3, EBS, entre otros.
+- Asociar el KMS con servicios específicos como RDS.
 
 
 Consulta CHANGELOG.md para la lista de cambios de cada versión. *Recomendamos encarecidamente que en tu código fijes la versión exacta que estás utilizando para que tu infraestructura permanezca estable y actualices las versiones de manera sistemática para evitar sorpresas.*
