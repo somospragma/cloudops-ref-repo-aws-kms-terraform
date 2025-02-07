@@ -65,6 +65,56 @@ module "kms" {
   # ... resto de la configuración
 }
 ```
+## Uso del Módulo:
+
+```hcl
+module "kms" {
+  source = ""
+  
+  providers = {
+    aws.principal = aws.principal
+    aws.secondary = aws.secondary
+  }
+
+  # Common configuration 
+  profile     = "profile01"
+  aws_region  = "us-east-1"
+  environment = "dev"
+  client      = "cliente01"
+  project     = "proyecto01"
+  common_tags = {
+    environment   = "dev"
+    project-name  = "proyecto01"
+    cost-center   = "xxxxxx"
+    owner         = "xxxxxx"
+    area          = "xxxxxx"
+    provisioned   = "xxxxxx"
+    datatype      = "xxxxxx"
+  }
+
+  # Dynamodb configuration 
+  kms_config [
+    {
+        description         = "xxxxxx"
+        enable_key_rotation = "xxxxxx"
+        statements = {
+          sid         = "xxxxxx"
+          actions     = "xxxxxx"
+          resources   = "xxxxxx"
+          effect      = "xxxxxx"
+          type        = "xxxxxx"
+          identifiers = "xxxxxx"
+          condition = {
+            test     = "xxxxxx"
+            variable = "xxxxxx"
+            values   = "xxxxxx"
+          }
+        }
+        application_id = "xxxxxx"
+      }
+    ]
+}
+```
 
 ## Requirements
 
@@ -79,10 +129,27 @@ module "kms" {
 |------|---------|
 | <a name="provider_aws.project"></a> [aws.project](#provider\_aws) | >= 4.31.0 |
 
-## References (PENDIENTE)
+## Resources
 
-| Module | Use | Resources | Varibales | Outputs |
-|------| ----- |------| ----- | ----- |
-| vpc | [Ver]() | [Ver]() | [Ver]() | [Ver]() |
-| vpc endpoints | [Ver]() | [Ver]() | [Ver]() | [Ver]() |
-| security groups | [Ver]() | [Ver]() | [Ver]() | [Ver]() |
+| Name | Type |
+|------|------|
+| [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
+| [aws_kms_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+| [aws_kms_key_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key_policy) | resource |
+| [aws_kms_grant](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_grant) | resource |
+
+
+## Variables
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="description "></a> [description ](#input\_description_) | The description of the key as viewed in AWS console. | `string` | n/a | yes |
+| <a name="enable_key_rotation"></a> [enable_key_rotation](#input\_enable_key_rotation_) | (Optional, required to be enabled if rotation_period_in_days is specified) Specifies whether key rotation is enabled. | `bool` | n/a | yes |
+| <a name="actions"></a> [actions](#input\_actions_) | Name of the hash key in the index; must be defined as an attribute in the resource. | `string` | "kms:*" | yes |
+| <a name="resources"></a> [resources](#input\_resources_) | Name of the range key; must be defined. | `string` | * | yes |
+| <a name="effect"></a> [effect](#input\_effect_) | Enable point-in-time recovery options. See below. | `string` | allow | yes |
+| <a name="type"></a> [type](#input\_type_) | Required) Attribute type. Valid values are S (string), N (number), B (binary). | `string` | AWS | yes |
+| <a name="test"></a> [test](#input\_ntest_) | (Required) Unique within a region name of the table. | `string` | n/a | yes |
+| <a name="variable"></a> [variable](#input\_variable_) | (Required) Whether to enable point-in-time recovery. It can take 10 minutes to enable for new tables. If the point_in_time_recovery block is not provided. | `string` | n/a | no |
+| <a name="values"></a> [values](#input\_values_) | (Optional, Forces new resource) ARN of the CMK that should be used for the AWS KMS encryption. This argument should only be used if the key is different from the default KMS-managed DynamoDB key, alias/aws/dynamodb. | `string` | n/a | yes |
+| <a name="application_id"></a> [application_id](#input\_application_id_) | (Optional) Whether to propagate the global table's tags to a replica. Default is false. Changes to tags only move in one direction: from global (source) to replica. In other words, tag drift on a replica will not trigger an update. Tag or replica changes on the global table, whether from drift or configuration changes, are propagated to replicas. Changing from true to false on a subsequent apply means replica tags are left as they were, unmanaged, not deleted. | `string` | n/a | yes |
