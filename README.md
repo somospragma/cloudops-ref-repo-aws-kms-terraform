@@ -139,7 +139,7 @@ module "kms" {
 | [aws_kms_grant](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_grant) | resource |
 
 
-## Variables
+## Variables (Pendiente Ajustar Description)
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
