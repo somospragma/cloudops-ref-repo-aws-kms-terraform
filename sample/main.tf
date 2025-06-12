@@ -3,7 +3,7 @@
 ################################################################
 module "kms_sm" {
   source = "../"
-  
+    
   # Configuración de providers
   providers = {
     aws.project = aws.principal
@@ -41,37 +41,7 @@ module "kms_sm" {
               values   = [data.aws_caller_identity.current.account_id]
             }
           ]
-        },
-        
-        # # Permitir que los roles específicos de aplicación accedan a los secretos
-        # {
-        #   sid         = "AllowAppRolesAccess"
-        #   actions     = [
-        #     "kms:Decrypt",
-        #     "kms:DescribeKey"
-        #   ]
-        #   resources   = ["*"]
-        #   effect      = "Allow"
-        #   type        = "AWS"
-        #   identifiers = [
-        #     "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/AppRole1",
-        #     "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/AppRole2"
-        #   ]
-        #   condition   = []
-        # },
-        
-        # # Permitir que los administradores gestionen la clave
-        # {
-        #   sid         = "AllowAdminManagement"
-        #   actions     = ["kms:*"]
-        #   resources   = ["*"]
-        #   effect      = "Allow"
-        #   type        = "AWS"
-        #   identifiers = [
-        #     "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/SecurityAdmin"
-        #   ]
-        #   condition   = []
-        # }
+        }
       ]
       additional_tags = {
         "Service"       = "SecretsManager",

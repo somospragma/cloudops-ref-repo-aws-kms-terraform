@@ -57,13 +57,3 @@ variable "common_tags" {
 ###############################################################
 # Variables específicas de KMS
 ###############################################################
-variable "enable_key_rotation" {
-  description = "Habilitar rotación automática de claves KMS"
-  type        = bool
-  default     = true
-  
-  validation {
-    condition     = var.enable_key_rotation == true
-    error_message = "La rotación de claves debe estar habilitada para cumplir con las mejores prácticas de seguridad."
-  }
-}
