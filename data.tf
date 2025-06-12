@@ -6,13 +6,13 @@ data "aws_iam_policy_document" "root_policy" {
   provider = aws.project
   
   statement {
-    sid       = "IAM_Users"
+    sid       = "EnableRootAccountPermissions"  # Nombre más descriptivo
     actions   = ["kms:*"]
     resources = ["*"]
     effect    = "Allow"
     principals {
       type        = "AWS"
-      identifiers = [data.aws_caller_identity.current.account_id]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
   }
 }
