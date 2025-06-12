@@ -8,15 +8,23 @@ client            = "pragma"
 project           = "hefesto"
 service_name_kms  = "kms"
 
+# Etiquetas comunes para todos los recursos (aplicadas a nivel de provider)
 common_tags = {
   environment   = "dev"
   project-name  = "Modulos Referencia"
-  cost-center   = "-"
-  owner         = "cristian.noguera@pragma.com.co"
-  area          = "KCCC"
+  cost-center   = "CC-12345"
+  owner         = "cloudops@pragma.com.co"
+  area          = "CloudOps"
   provisioned   = "terraform"
   datatype      = "interno"
 }
 
-# KMS
-enable_key_rotation                   = false
+# Etiquetas adicionales específicas para recursos KMS
+additional_tags = {
+  "SecurityCompliance" = "PCI-DSS",
+  "DataClassification" = "Confidential",
+  "BackupPolicy"       = "Daily"
+}
+
+# Configuración de KMS
+enable_key_rotation = true
