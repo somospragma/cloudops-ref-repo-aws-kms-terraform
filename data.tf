@@ -2,6 +2,18 @@ data "aws_caller_identity" "current" {
   provider = aws.project
 }
 
+# Locals para manejar los principales adicionales
+locals {
+  # Solo agregar el rol de deployment si se proporciona
+  additional_principals = var.deploy_role_arn != null ? [var.deploy_role_arn] : []
+  
+  # Combinar account ID con principales adicionales
+  all_principals = concat(
+    [data.aws_caller_identity.current.account_id],
+    local.additional_principals
+  )
+}
+
 data "aws_iam_policy_document" "root_policy" {
   provider = aws.project
   
@@ -12,10 +24,7 @@ data "aws_iam_policy_document" "root_policy" {
     effect    = "Allow"
     principals {
       type        = "AWS"
-      #identifiers = [data.aws_caller_identity.current.account_id,
-      #var.deploy_role_arn
-      #]
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+      identifiers = local.all_principals
     }
   }
 }

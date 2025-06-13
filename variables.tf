@@ -30,13 +30,16 @@ variable "project" {
   }
 }
 
-# Temporal
-
 variable "deploy_role_arn" {
+  description = "ARN del rol de deployment para operaciones de KMS (requerido para pipelines OIDC/cross-account)"
   type        = string
-  description = "Rol Deployment IaC"
+  default     = null
+  
+  validation {
+    condition     = var.deploy_role_arn == null || can(regex("^arn:aws:iam::[0-9]{12}:role/.+", var.deploy_role_arn))
+    error_message = "deploy_role_arn debe ser un ARN válido de rol IAM o null."
+  }
 }
-
 variable "kms_config" {
   description = "Configuración de claves KMS a crear"
   type = map(object({
