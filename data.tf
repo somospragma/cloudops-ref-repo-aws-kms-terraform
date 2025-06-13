@@ -12,10 +12,7 @@ data "aws_iam_policy_document" "root_policy" {
     effect    = "Allow"
     principals {
       type        = "AWS"
-      identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
-        data.aws_caller_identity.current.arn
-      ]
+      identifiers = [data.aws_caller_identity.current.account_id]
     }
   }
 }
