@@ -30,6 +30,13 @@ variable "project" {
   }
 }
 
+# Temporal
+
+variable "deploy_role_arn" {
+  type        = string
+  description = "Rol Deployment IaC"
+}
+
 variable "kms_config" {
   description = "Configuración de claves KMS a crear"
   type = map(object({
