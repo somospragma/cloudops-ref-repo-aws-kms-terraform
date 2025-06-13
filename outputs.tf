@@ -35,3 +35,12 @@ output "kms_complete_info" {
     }
   }
 }
+
+
+output "debug_info" {
+  value = {
+    caller_account = data.aws_caller_identity.current.account_id
+    caller_arn     = data.aws_caller_identity.current.arn
+    caller_user_id = data.aws_caller_identity.current.user_id
+  }
+}
