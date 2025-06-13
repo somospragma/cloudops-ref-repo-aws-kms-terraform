@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "combined" {
   for_each = var.kms_config
   
   override_policy_documents = [
-    data.aws_iam_policy_document.root_policy.json#,
-    #data.aws_iam_policy_document.dynamic_policy[each.key].json
+    data.aws_iam_policy_document.root_policy.json,
+    data.aws_iam_policy_document.dynamic_policy[each.key].json
   ]
 }
