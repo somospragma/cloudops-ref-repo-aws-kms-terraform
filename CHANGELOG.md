@@ -5,6 +5,19 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2024-12-19
+
+### Added
+- 📄 Archivo `sample/locals.tf` para cumplir con PC-IAC-001
+
+### Fixed
+- 🐛 Outputs en `sample/outputs.tf` ahora están activos y funcionales
+- 🐛 Cumplimiento 100% con PC-IAC-001 (18/18 archivos obligatorios)
+- 🐛 Cumplimiento 100% con PC-IAC-026 (sample funcional completo)
+
+### Changed
+- 📝 Actualizado `sample/outputs.tf` con outputs específicos para Secrets Manager
+
 ## [1.0.0] - 2023-06-15
 
 ### Añadido
